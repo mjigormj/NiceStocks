@@ -9,11 +9,11 @@ import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
-public class StockView extends javax.swing.JFrame {
+public class StockList extends javax.swing.JFrame {
 
     String stockName;
 
-    public StockView() {
+    public StockList() {
         initComponents();
     }
 
@@ -135,7 +135,7 @@ public class StockView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StockView().setVisible(true);
+                new StockList().setVisible(true);
             }
         });
     }
@@ -159,7 +159,7 @@ public class StockView extends javax.swing.JFrame {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(StockView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StockList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
