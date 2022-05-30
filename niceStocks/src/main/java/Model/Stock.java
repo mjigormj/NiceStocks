@@ -24,6 +24,14 @@ public class Stock {
         //this.setTotalPrice(this.getMarcketValue(), this.getStockQtd());
 
     }
+    
+    public String dayRange() {
+        return getDoc().getElementsByClass("P6K39c").get(1).text();
+    }
+    
+    public String percentVariance() {
+        return getDoc().getElementsByClass("JwB6zf").get(17).text();
+    }
 
     public void infoStock() {
         System.out.println("\t-----" + this.getName() + "-----");
