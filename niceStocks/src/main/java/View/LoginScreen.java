@@ -1,7 +1,16 @@
 package View;
 
 
+import Controller.Conector;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 
@@ -20,11 +29,11 @@ public class LoginScreen extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel2 = new javax.swing.JLabel();
-        stockInput = new javax.swing.JTextField();
-        stockInput1 = new javax.swing.JTextField();
+        tfUserEmail = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
+        btnCreateAccount = new javax.swing.JButton();
+        tfpUserPasswd = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -34,12 +43,12 @@ public class LoginScreen extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(157, 68, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(145, 83, 0, 0);
         getContentPane().add(jLabel2, gridBagConstraints);
 
-        stockInput.addActionListener(new java.awt.event.ActionListener() {
+        tfUserEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stockInputActionPerformed(evt);
+                tfUserEmailActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -48,12 +57,49 @@ public class LoginScreen extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.ipadx = 170;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 68, 0, 68);
-        getContentPane().add(stockInput, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(12, 83, 0, 83);
+        getContentPane().add(tfUserEmail, gridBagConstraints);
 
-        stockInput1.addActionListener(new java.awt.event.ActionListener() {
+        jLabel3.setText("Senha");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 83, 0, 0);
+        getContentPane().add(jLabel3, gridBagConstraints);
+
+        btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stockInput1ActionPerformed(evt);
+                btnLoginActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.ipadx = -2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(54, 43, 0, 0);
+        getContentPane().add(btnLogin, gridBagConstraints);
+
+        btnCreateAccount.setText("Criar conta");
+        btnCreateAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateAccountActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(71, 35, 42, 0);
+        getContentPane().add(btnCreateAccount, gridBagConstraints);
+
+        tfpUserPasswd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfpUserPasswdActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -62,64 +108,50 @@ public class LoginScreen extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.ipadx = 170;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 68, 0, 68);
-        getContentPane().add(stockInput1, gridBagConstraints);
-
-        jLabel3.setText("Senha");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 68, 0, 0);
-        getContentPane().add(jLabel3, gridBagConstraints);
-
-        jButton1.setText("Login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.ipadx = -2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(35, 55, 0, 0);
-        getContentPane().add(jButton1, gridBagConstraints);
-
-        jButton2.setText("Criar conta");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(97, 46, 48, 0);
-        getContentPane().add(jButton2, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(12, 83, 0, 83);
+        getContentPane().add(tfpUserPasswd, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void stockInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockInputActionPerformed
+    private void tfUserEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUserEmailActionPerformed
         //stockName = stockInput.getText().trim();
-    }//GEN-LAST:event_stockInputActionPerformed
+    }//GEN-LAST:event_tfUserEmailActionPerformed
 
-    private void stockInput1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockInput1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_stockInput1ActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        try {
+            
+            Connection con = Conector.conect();
+            String sql = "select * from users_table where email=? and passwd=?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setString(1, tfUserEmail.getText());
+            stmt.setString(2, new String(tfpUserPasswd.getPassword()));
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            if(rs.next()){
+                this.setVisible(false);
+                StockView sv = new StockView();
+                sv.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "usuario invalido");
+            }
+            stmt.close();
+            con.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCreateAccountActionPerformed
+
+    private void tfpUserPasswdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfpUserPasswdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_tfpUserPasswdActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -137,11 +169,11 @@ public class LoginScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnCreateAccount;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField stockInput;
-    private javax.swing.JTextField stockInput1;
+    private javax.swing.JTextField tfUserEmail;
+    private javax.swing.JPasswordField tfpUserPasswd;
     // End of variables declaration//GEN-END:variables
 }

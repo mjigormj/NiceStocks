@@ -14,10 +14,13 @@ View\LoginScreen$4.class
 Model\Stock.class
 View\StockView$3.class
 View\GNice.class
+View\StockList$6.class
+.netbeans_automatic_build
 br\com\nicestocks\nicestocks\NiceStocks.class
 Turtorial.class
 View\LoginCreate$3.class
 View\StockView$1.class
+Controller\Conector.class
 Controller\StockControl.class
 View\LoginScreen$2.class
 View\LoginScreen$5.class
