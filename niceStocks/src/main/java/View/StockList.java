@@ -1,9 +1,11 @@
 package View;
 
+import Controller.CRUD;
 import Model.Stock;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
-import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -21,34 +23,27 @@ public class StockList extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        stockInput = new javax.swing.JTextField();
+        jlEmail = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         stockTable = new javax.swing.JTable();
         btnSearch = new java.awt.Button();
-        btnAddStock = new javax.swing.JButton();
+        btnRefreshTable = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel2.setText("Procurar titulo:");
-
-        stockInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stockInputActionPerformed(evt);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
             }
         });
-        stockInput.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                stockInputKeyPressed(evt);
-            }
-        });
+
+        jlEmail.setText("Nome do Usuario:");
 
         stockTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Titulo", "Preço (R$)", "Variação (%)", "Baixa/Alta"
+                "Titulo", "Preço", "Valor Médio", "Baixa/Alta"
             }
         ) {
             Class[] types = new Class [] {
@@ -61,11 +56,11 @@ public class StockList extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(stockTable);
 
-        btnSearch.setActionCommand("Pesquisar");
+        btnSearch.setActionCommand("Buscar Titulo");
         btnSearch.setBackground(new java.awt.Color(60, 63, 98));
         btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSearch.setForeground(new java.awt.Color(204, 204, 204));
-        btnSearch.setLabel("Pesquisar");
+        btnSearch.setLabel("Buscar Titulo");
         btnSearch.setName(""); // NOI18N
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,10 +68,10 @@ public class StockList extends javax.swing.JFrame {
             }
         });
 
-        btnAddStock.setText("+");
-        btnAddStock.addActionListener(new java.awt.event.ActionListener() {
+        btnRefreshTable.setText("refresh");
+        btnRefreshTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddStockActionPerformed(evt);
+                btnRefreshTableActionPerformed(evt);
             }
         });
 
@@ -84,64 +79,59 @@ public class StockList extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlEmail)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAddStock, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(stockInput, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(244, 244, 244)
-                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRefreshTable)))
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jlEmail)
+                .addGap(92, 92, 92)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(10, 10, 10)
-                        .addComponent(stockInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnAddStock)
-                        .addGap(46, 46, 46))))
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefreshTable))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void stockInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockInputActionPerformed
-        //stockName = stockInput.getText().trim();
-    }//GEN-LAST:event_stockInputActionPerformed
-
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        this.showStock();
+        StockSearch ss = new StockSearch();
+        ss.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void stockInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stockInputKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
-            this.showStock();
-    }//GEN-LAST:event_stockInputKeyPressed
+    private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
+        try {
+            tituloList();
+        } catch (SQLException ex) {
+            Logger.getLogger(StockList.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(StockList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRefreshTableActionPerformed
 
-    private void btnAddStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStockActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddStockActionPerformed
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        try {
+            tituloList();
+        } catch (SQLException ex) {
+            Logger.getLogger(StockList.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(StockList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formComponentShown
 
     public static void main(String args[]) {
         try {
@@ -159,34 +149,28 @@ public class StockList extends javax.swing.JFrame {
     }
 
     // Methods
-    public void showStock() {
-        try {
-            if (!stockInput.getText().isEmpty()) {
-                try {
-                    Stock stock = new Stock();
-                    stock.criarStock(stockInput.getText().trim());
-                    DefaultTableModel val = (DefaultTableModel) stockTable.getModel();
+    public void tituloList() throws SQLException, IOException {
 
-                    int i = val.getRowCount();
-                    if (i > 0) {
-                        val.removeRow(0);
-                    }
-                    val.addRow(new String[]{stock.getName(), stock.getMarcketValue().toString(),stock.percentVariance(),  stock.dayRange()});
-                } catch (NumberFormatException e) {
-                    System.out.println("Entrada invalida");
-                }
+        ArrayList<String> titulos = CRUD.returnArrayFromTable();
+        DefaultTableModel val = (DefaultTableModel) stockTable.getModel();
+        //retornArrayFromTable
+        try {
+            for (String titulo : titulos) {
+                Stock stock = new Stock();
+                stock.criarStock(titulo);
+                val.addRow(new String[]{stock.getName(), stock.getMarcketValue().toString()});
             }
-        } catch (IOException ex) {
-            Logger.getLogger(StockList.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (NumberFormatException e) {
+            System.out.println("Entrada invalida");
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddStock;
+    private javax.swing.JButton btnRefreshTable;
     private java.awt.Button btnSearch;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField stockInput;
+    private javax.swing.JLabel jlEmail;
     private javax.swing.JTable stockTable;
     // End of variables declaration//GEN-END:variables
 }

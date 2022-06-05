@@ -8,6 +8,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="componentShown" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="formComponentShown"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -23,71 +26,43 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnAddStock" min="-2" pref="32" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jScrollPane1" alignment="0" min="-2" pref="414" max="-2" attributes="0"/>
+                  <Component id="jlEmail" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="stockInput" alignment="0" min="-2" pref="234" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="244" max="-2" attributes="0"/>
-                              <Component id="btnSearch" min="-2" pref="68" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="btnSearch" min="-2" pref="98" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Component id="btnRefreshTable" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="30" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="30" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <Component id="jlEmail" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="198" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Component id="stockInput" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="btnSearch" min="-2" pref="22" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="btnSearch" min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="btnRefreshTable" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="jScrollPane1" min="-2" pref="70" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="btnAddStock" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="jlEmail">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Procurar titulo:"/>
+        <Property name="text" type="java.lang.String" value="Nome do Usuario:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="stockInput">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stockInputActionPerformed"/>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="stockInputKeyPressed"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -101,8 +76,8 @@
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="4" rowCount="0">
                 <Column editable="true" title="Titulo" type="java.lang.String"/>
-                <Column editable="true" title="Pre&#xe7;o (R$)" type="java.lang.Object"/>
-                <Column editable="true" title="Varia&#xe7;&#xe3;o (%)" type="java.lang.Object"/>
+                <Column editable="true" title="Pre&#xe7;o" type="java.lang.Object"/>
+                <Column editable="true" title="Valor M&#xe9;dio" type="java.lang.Object"/>
                 <Column editable="true" title="Baixa/Alta" type="java.lang.Object"/>
               </Table>
             </Property>
@@ -139,7 +114,9 @@
     </Container>
     <Component class="java.awt.Button" name="btnSearch">
       <Properties>
-        <Property name="actionCommand" type="java.lang.String" value="Pesquisar"/>
+        <Property name="actionCommand" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="&quot;Buscar Titulo&quot;" type="code"/>
+        </Property>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="62" green="3f" red="3c" type="rgb"/>
         </Property>
@@ -149,19 +126,19 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
-        <Property name="label" type="java.lang.String" value="Pesquisar"/>
+        <Property name="label" type="java.lang.String" value="Buscar Titulo"/>
         <Property name="name" type="java.lang.String" value="" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnAddStock">
+    <Component class="javax.swing.JButton" name="btnRefreshTable">
       <Properties>
-        <Property name="text" type="java.lang.String" value="+"/>
+        <Property name="text" type="java.lang.String" value="refresh"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddStockActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshTableActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -122,7 +122,7 @@ public class LoginScreen extends javax.swing.JFrame {
         try {
             
             Connection con = Conector.conect();
-            String sql = "select * from users_table where email=? and passwd=?";
+            String sql = "select * from usuario where email=? and passwd=?";
             PreparedStatement stmt = con.prepareStatement(sql);
             
             stmt.setString(1, tfUserEmail.getText());
@@ -131,11 +131,11 @@ public class LoginScreen extends javax.swing.JFrame {
             ResultSet rs = stmt.executeQuery();
             
             if(rs.next()){
-                this.setVisible(false);
-                StockView sv = new StockView();
+                this.dispose();
+                StockList sv = new StockList();
                 sv.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "usuario invalido");
+                JOptionPane.showMessageDialog(null, "Login Invalido \n Verificar email e senha");
             }
             stmt.close();
             con.close();
