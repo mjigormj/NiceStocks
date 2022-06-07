@@ -8,7 +8,7 @@ public class Stock {
 
     String name;
     Double marcketValue = 0.0;
-    //Double avgPrice;
+    Double avgPrice;
     Double avgCust = 0.0;
     Double totalPrice = 0.0;
     Double moneyEarned = 0.0;

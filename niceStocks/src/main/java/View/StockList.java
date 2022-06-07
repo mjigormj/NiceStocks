@@ -5,6 +5,7 @@ import Model.Stock;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,11 +44,11 @@ public class StockList extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Titulo", "Preço", "Valor Médio", "Baixa/Alta"
+                "Titulo", "Preço", "Valor Médio", "Qtd", "Valor em Posse"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -80,15 +81,18 @@ public class StockList extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 20, Short.MAX_VALUE)
+                .addGap(0, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlEmail)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnRefreshTable)))
-                .addGap(18, 18, 18))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnRefreshTable)
+                            .addGap(244, 244, 244))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(15, 15, 15)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,16 +153,18 @@ public class StockList extends javax.swing.JFrame {
     }
 
     // Methods
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     public void tituloList() throws SQLException, IOException {
-
+        
         ArrayList<String> titulos = CRUD.returnArrayFromTable();
-        DefaultTableModel val = (DefaultTableModel) stockTable.getModel();
-        //retornArrayFromTable
         try {
+            DefaultTableModel val = (DefaultTableModel) stockTable.getModel();
+            val.setRowCount(0);
             for (String titulo : titulos) {
                 Stock stock = new Stock();
                 stock.criarStock(titulo);
-                val.addRow(new String[]{stock.getName(), stock.getMarcketValue().toString()});
+                String valorAtual = df.format(stock.getMarcketValue());
+                val.addRow(new String[]{stock.getName(), valorAtual });
             }
             
         } catch (NumberFormatException e) {

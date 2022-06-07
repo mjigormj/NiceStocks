@@ -1,11 +1,13 @@
 package View;
 
+import Controller.CRUD;
 import Controller.Conector;
 import Model.Stock;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +33,7 @@ public class StockSearch extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         stockTable = new javax.swing.JTable();
         btnAddStock = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,10 +84,10 @@ public class StockSearch extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Voltar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
@@ -109,14 +111,14 @@ public class StockSearch extends javax.swing.JFrame {
                         .addComponent(btnSearch))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1)))
+                        .addComponent(btnVoltar)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(btnVoltar)
                 .addGap(2, 2, 2)
                 .addComponent(jLabel2)
                 .addGap(10, 10, 10)
@@ -146,27 +148,42 @@ public class StockSearch extends javax.swing.JFrame {
     }//GEN-LAST:event_stockInputKeyPressed
 
     private void btnAddStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStockActionPerformed
-        Connection con;
         try {
             DefaultTableModel val = (DefaultTableModel) stockTable.getModel();
-            JOptionPane.showMessageDialog(null, val.getValueAt(0, 0).toString());
-            con = Conector.conect();
-            String sql = "insert into titulo(titulo, qtdTitulo) values ('"+ stockInput.getText() + "', " + 12 + ");";
-            con.close();
-                        
-        } catch (SQLException ex) {
+            String stockNome = val.getValueAt(0, 0).toString();
+            String qtdStock = JOptionPane.showInputDialog(stockName + "\n Quantidade a ser comprada", 1);
+            int qtdStock1 = Integer.parseInt(qtdStock);
+            
+            String valorPago = JOptionPane.showInputDialog("\n Valor a ser pago R$:", val.getValueAt(0, 1).toString());
+            Double valorPago1 = Double.parseDouble(valorPago);
+            
+            if(CRUD.verifyIfExistsInTable("carteira", "nmTitulo", stockNome)){
+                CRUD.updateInTableCarteira(stockNome, qtdStock1, valorPago1);
+            } else {
+                CRUD.insertInTableCarteira(stockNome, qtdStock1, valorPago1);
+            }
+            
+
+        } catch (SQLException ex) {            
             Logger.getLogger(StockSearch.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
+        catch ( Exception e) {
+            JOptionPane.showMessageDialog(null, "DIGITE APENAS NÚEMEROS", "ERRO", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+
     }//GEN-LAST:event_btnAddStockActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         this.showStock();
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        StockList sl = new StockList();
+        sl.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -196,7 +213,7 @@ public class StockSearch extends javax.swing.JFrame {
                     if (i > 0) {
                         val.removeRow(0);
                     }
-                    val.addRow(new String[]{stock.getName(), stock.getMarcketValue().toString(),stock.percentVariance(),  stock.dayRange()});
+                    val.addRow(new String[]{stock.getName(), stock.getMarcketValue().toString(), stock.percentVariance(), stock.dayRange()});
                 } catch (NumberFormatException e) {
                     System.out.println("Entrada invalida");
                 }
@@ -205,11 +222,11 @@ public class StockSearch extends javax.swing.JFrame {
             Logger.getLogger(StockSearch.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddStock;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField stockInput;
