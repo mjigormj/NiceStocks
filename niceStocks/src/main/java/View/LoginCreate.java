@@ -1,5 +1,6 @@
 package View;
 
+import Controller.CRUD;
 import Model.Stock;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -7,6 +8,7 @@ import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,77 +18,69 @@ public class LoginCreate extends javax.swing.JFrame {
 
     public LoginCreate() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        stockInput = new javax.swing.JTextField();
-        stockInput1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        stockInput2 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        stockInput3 = new javax.swing.JTextField();
-        stockInput4 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        stockInput5 = new javax.swing.JTextField();
+        labelNomeUsuario = new javax.swing.JLabel();
+        userNameInput = new javax.swing.JTextField();
+        labelEmail = new javax.swing.JLabel();
+        emailInput = new javax.swing.JTextField();
+        labelPasswd = new javax.swing.JLabel();
+        passwdInput = new javax.swing.JTextField();
+        labelPasswdConfirm = new javax.swing.JLabel();
+        passwdConfirmInput = new javax.swing.JTextField();
+        btnCreate = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setText("Email");
+        labelNomeUsuario.setText("Nome de Usuário");
 
-        stockInput.addActionListener(new java.awt.event.ActionListener() {
+        userNameInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stockInputActionPerformed(evt);
+                userNameInputActionPerformed(evt);
             }
         });
 
-        stockInput1.addActionListener(new java.awt.event.ActionListener() {
+        labelEmail.setText("Email");
+
+        emailInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stockInput1ActionPerformed(evt);
+                emailInputActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Senha");
+        labelPasswd.setText("Senha");
 
-        jButton2.setText("Criar conta");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        passwdInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                passwdInputActionPerformed(evt);
             }
         });
 
-        stockInput2.addActionListener(new java.awt.event.ActionListener() {
+        labelPasswdConfirm.setText("Confirmar Senha");
+
+        passwdConfirmInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stockInput2ActionPerformed(evt);
+                passwdConfirmInputActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("Confirmar Senha");
-
-        jLabel5.setText("Email");
-
-        stockInput3.addActionListener(new java.awt.event.ActionListener() {
+        btnCreate.setText("Criar conta");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stockInput3ActionPerformed(evt);
+                btnCreateActionPerformed(evt);
             }
         });
 
-        stockInput4.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stockInput4ActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setText("Nome de Usuário");
-
-        stockInput5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stockInput5ActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
@@ -95,82 +89,78 @@ public class LoginCreate extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(stockInput5, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(stockInput4, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5)
-                    .addComponent(stockInput, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(stockInput3, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(stockInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(stockInput2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCreate)
+                            .addComponent(labelNomeUsuario)
+                            .addComponent(userNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelEmail)
+                            .addComponent(emailInput, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelPasswd)
+                            .addComponent(passwdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelPasswdConfirm)
+                            .addComponent(passwdConfirmInput, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnVoltar)))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(jLabel7)
+                .addGap(19, 19, 19)
+                .addComponent(btnVoltar)
+                .addGap(52, 52, 52)
+                .addComponent(labelNomeUsuario)
                 .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(stockInput5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(stockInput4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(userNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5))
+                .addComponent(labelEmail)
                 .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(stockInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(stockInput3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(emailInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(jLabel3)
+                .addComponent(labelPasswd)
                 .addGap(6, 6, 6)
-                .addComponent(stockInput1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passwdInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(jLabel4)
+                .addComponent(labelPasswdConfirm)
                 .addGap(6, 6, 6)
-                .addComponent(stockInput2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jButton2)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addComponent(passwdConfirmInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCreate)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void stockInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockInputActionPerformed
-        //stockName = stockInput.getText().trim();
-    }//GEN-LAST:event_stockInputActionPerformed
+    private void emailInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailInputActionPerformed
+        String email = emailInput.getText().trim();
+    }//GEN-LAST:event_emailInputActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void userNameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameInputActionPerformed
+        String userName = userNameInput.getText().trim();
+    }//GEN-LAST:event_userNameInputActionPerformed
 
-    private void stockInput3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockInput3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_stockInput3ActionPerformed
+    private void passwdInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwdInputActionPerformed
+        String passwd = passwdInput.getText().trim();
+    }//GEN-LAST:event_passwdInputActionPerformed
 
-    private void stockInput4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockInput4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_stockInput4ActionPerformed
+    private void passwdConfirmInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwdConfirmInputActionPerformed
+        String passwdConfirm = passwdConfirmInput.getText().trim();
+    }//GEN-LAST:event_passwdConfirmInputActionPerformed
 
-    private void stockInput5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockInput5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_stockInput5ActionPerformed
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        this.criarConta();
+    }//GEN-LAST:event_btnCreateActionPerformed
 
-    private void stockInput1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockInput1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_stockInput1ActionPerformed
-
-    private void stockInput2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockInput2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_stockInput2ActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        LoginScreen ls = new LoginScreen();
+        ls.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -187,18 +177,39 @@ public class LoginCreate extends javax.swing.JFrame {
         });
     }
 
+    //Methods
+    public void criarConta() {
+        try {
+            if (!userNameInput.getText().isEmpty() && !emailInput.getText().isEmpty() && !passwdInput.getText().isEmpty()) {
+                if (emailInput.getText().contains("@")) {
+                    if (passwdInput.getText().equals(passwdConfirmInput.getText())) {
+                        CRUD.insertInTableUsuario(userNameInput.getText(), emailInput.getText(), passwdInput.getText());
+                        LoginScreen ls = new LoginScreen();
+                        ls.setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "As senhas digitadas não são iguais", "Erro ao inserir senha", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Insira um email valido", "Erro no campo email", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Verifique se existe algum campo vazio", "Campo vazio", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao criar usuario");
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField stockInput;
-    private javax.swing.JTextField stockInput1;
-    private javax.swing.JTextField stockInput2;
-    private javax.swing.JTextField stockInput3;
-    private javax.swing.JTextField stockInput4;
-    private javax.swing.JTextField stockInput5;
+    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnVoltar;
+    private javax.swing.JTextField emailInput;
+    private javax.swing.JLabel labelEmail;
+    private javax.swing.JLabel labelNomeUsuario;
+    private javax.swing.JLabel labelPasswd;
+    private javax.swing.JLabel labelPasswdConfirm;
+    private javax.swing.JTextField passwdConfirmInput;
+    private javax.swing.JTextField passwdInput;
+    private javax.swing.JTextField userNameInput;
     // End of variables declaration//GEN-END:variables
 }

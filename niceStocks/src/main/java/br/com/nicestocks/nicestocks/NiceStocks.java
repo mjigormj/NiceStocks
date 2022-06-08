@@ -1,39 +1,27 @@
 package br.com.nicestocks.nicestocks;
 
 import Model.Stock;
+import View.LoginCreate;
+import View.LoginScreen;
+import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.UIManager;
 
 public class NiceStocks {
 
     public static void main(String[] args) throws IOException {
-
-        List<Stock> stocks = new ArrayList<>();
-
-        Scanner sc = new Scanner(System.in);
-
-        for (int i = 0; i < 3; i++) {
-            try {
-                Stock stock = new Stock();
-                System.out.println("Digite qual titulo devo adicionar a carteira: ");
-                String stockName = sc.next();
-                stock.criarStock(stockName);
-                stocks.add(stock);
-                
-            } catch (NumberFormatException e) {
-                System.out.println("Entrada invalida");
-                i--;
-
+        try {
+            UIManager.setLookAndFeel(new FlatOneDarkIJTheme());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
+        }
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LoginScreen().setVisible(true);
             }
-        }
-
-        for (Stock stock : stocks) {
-            stock.infoStock();
-        }
-        // System.out.println("Titulo adicionado");
-
-        sc.close();
+        });
     }
 }

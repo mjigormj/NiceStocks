@@ -8,12 +8,12 @@ public class Stock {
 
     String name;
     Double marcketValue = 0.0;
-    Double avgPrice;
     Double avgCust = 0.0;
     Double totalPrice = 0.0;
     Double moneyEarned = 0.0;
     int stockQtd = 0;
     Document doc;
+    //Double avgPrice;
 
     public void criarStock(String name) throws IOException {
 
@@ -31,16 +31,6 @@ public class Stock {
     
     public String percentVariance() {
         return getDoc().getElementsByClass("JwB6zf").get(17).text();
-    }
-
-    public void infoStock() {
-        System.out.println("\t-----" + this.getName() + "-----");
-        System.out.println("Quantidade \t\t" + this.getStockQtd());
-        System.out.println("Custo Médio \t\tR$ " + this.getAvgCust());
-        System.out.println("Preço de mercado \tR$ " + this.getMarcketValue());
-        System.out.println("Valor Total \t\tR$ " + this.getTotalPrice());
-        System.out.println("Ganho/Perda \t\tR$ " + this.getMoneyEarned());
-
     }
 
     // Metodos especiais

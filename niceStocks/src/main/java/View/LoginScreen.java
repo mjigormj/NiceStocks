@@ -21,6 +21,7 @@ public class LoginScreen extends javax.swing.JFrame {
 
     public LoginScreen() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

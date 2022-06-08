@@ -18,6 +18,7 @@ public class StockList extends javax.swing.JFrame {
 
     public StockList() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

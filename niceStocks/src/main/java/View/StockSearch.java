@@ -21,6 +21,7 @@ public class StockSearch extends javax.swing.JFrame {
 
     public StockSearch() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
