@@ -60,8 +60,8 @@ public class Stock {
         return avgCust;
     }
 
-    public void setAvgCust(Double avgCust) {
-        this.avgCust = avgCust;
+    public void setAvgCust(Double avgCust, int stockQtd) {
+        this.avgCust = avgCust / stockQtd;
     }
 
     public int getStockQtd() {

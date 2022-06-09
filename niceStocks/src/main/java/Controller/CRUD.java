@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.Stock;
+import java.io.IOException;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -76,6 +78,28 @@ public class CRUD {
         while (rs.next()) {
             System.out.println("titulo: " + rs.getString("nmTitulo"));
             array.add(rs.getString("nmTitulo"));
+        }
+
+        con.close();
+
+        return array;
+    }
+    
+        //retorna todos os valores da tabela Carteira em um ArrayList
+    public static ArrayList<Stock> returnStockFromTable() throws SQLException, IOException {
+        Connection con;
+        con = Conector.conect();
+        PreparedStatement stmt = con.prepareStatement("select * from carteira;");
+        ResultSet rs = stmt.executeQuery();
+
+        ArrayList<Stock> array = new ArrayList();
+        while (rs.next()) {
+            Stock stock = new Stock();
+            System.out.println("titulo: " + rs.getString("nmTitulo"));
+            stock.criarStock(rs.getString("nmTitulo"));
+            stock.setStockQtd(Integer.parseInt(rs.getString("qtdTitulo")));
+            stock.setAvgCust(Double.parseDouble(rs.getString("valorPago")), stock.getStockQtd());
+            array.add(stock);
         }
 
         con.close();

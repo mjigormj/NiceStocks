@@ -153,15 +153,15 @@ public class StockSearch extends javax.swing.JFrame {
             DefaultTableModel val = (DefaultTableModel) stockTable.getModel();
             String stockNome = val.getValueAt(0, 0).toString();
             String qtdStock = JOptionPane.showInputDialog(stockName + "\n Quantidade a ser comprada", 1);
-            int qtdStock1 = Integer.parseInt(qtdStock);
+            int qtdStockInteger = Integer.parseInt(qtdStock);
             
             String valorPago = JOptionPane.showInputDialog("\n Valor a ser pago R$:", val.getValueAt(0, 1).toString());
-            Double valorPago1 = Double.parseDouble(valorPago);
+            Double valorPagoDouble = Double.parseDouble(valorPago);
             
             if(CRUD.verifyIfExistsInTable("carteira", "nmTitulo", stockNome)){
-                CRUD.updateInTableCarteira(stockNome, qtdStock1, valorPago1);
+                CRUD.updateInTableCarteira(stockNome, qtdStockInteger, valorPagoDouble * qtdStockInteger);
             } else {
-                CRUD.insertInTableCarteira(stockNome, qtdStock1, valorPago1);
+                CRUD.insertInTableCarteira(stockNome, qtdStockInteger, valorPagoDouble * qtdStockInteger);
             }
             
 
